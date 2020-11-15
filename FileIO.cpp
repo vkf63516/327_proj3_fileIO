@@ -16,7 +16,7 @@ int KP_FileIO::getFileContents(const string &filename,
 	ifstream cont_file;
 	cont_file.open(contents);
 	if (!cont_file) {
-		return COULD_NOT_OPEN_FILE_TO_READ;
+		return (COULD_NOT_OPEN_FILE_TO_READ);
 	}
 	contents.clear();
 	string lineFeed;
@@ -29,9 +29,9 @@ int KP_FileIO::getFileContents(const string &filename,
 		contents += lineFeed;
 	}
 	if (contents.empty()) {
-		return COULD_NOT_OPEN_FILE_TO_READ;
+		return (COULD_NOT_OPEN_FILE_TO_READ);
 	}
-	return SUCCESS;
+	return (SUCCESS);
 
 
 }
@@ -41,13 +41,13 @@ int KP_FileIO::writeVectortoFile(const string filename,
 	ofstream vect_file;
 	vect_file.open(filename.c_str());
 	if (!vect_file) {
-		return COULD_NOT_OPEN_FILE_TO_WRITE;
+		return (COULD_NOT_OPEN_FILE_TO_WRITE);
 	}
-	for (string entries : myEntryVector) {
-		vect_file << entries << '\n';
+	for (vector<string>::iterator itr = myEntryVector.begin(); itr != myEntryVector.end(); ++itr) {
+		vect_file << *itr << '\n';
 	}
 	vect_file.close();
-	return SUCCESS;
+	return (SUCCESS);
 }
 
 
