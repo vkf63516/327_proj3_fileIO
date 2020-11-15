@@ -11,10 +11,9 @@
 
 using namespace std;
 
-int KP_FileIO::getFileContents(const string &filename,
-		string &contents){
-	ifstream cont_file;
-	cont_file.open(contents);
+int KP_FileIO::getFileContents(const string &filename, string &contents) {
+	fstream cont_file;
+	cont_file.open(filename);
 	if (!cont_file) {
 		return (COULD_NOT_OPEN_FILE_TO_READ);
 	}
@@ -23,31 +22,32 @@ int KP_FileIO::getFileContents(const string &filename,
 	while (cont_file.peek() != EOF) {
 		getline(cont_file, lineFeed);
 		size_t reveal = lineFeed.find('\n');
-		if (reveal != -1) {
+		if (reveal != string::npos) {
 			lineFeed.erase(reveal, 1);
 		}
 		contents += lineFeed;
 	}
+
 	if (contents.empty()) {
 		return (COULD_NOT_OPEN_FILE_TO_READ);
 	}
+	cont_file.close();
 	return (SUCCESS);
-
 
 }
 
 int KP_FileIO::writeVectortoFile(const string filename,
-		vector<string> &myEntryVector){
+        vector<string> &myEntryVector) {
 	ofstream vect_file;
 	vect_file.open(filename.c_str());
 	if (!vect_file) {
 		return (COULD_NOT_OPEN_FILE_TO_WRITE);
 	}
-	for (vector<string>::iterator itr = myEntryVector.begin(); itr != myEntryVector.end(); ++itr) {
+	for (vector<string>::iterator itr = myEntryVector.begin();
+	        itr != myEntryVector.end(); itr++) {
 		vect_file << *itr << '\n';
 	}
 	vect_file.close();
 	return (SUCCESS);
 }
-
 
